@@ -41,7 +41,12 @@ namespace BusMeApp.Models
 
         [Required]
         public int RemainingSeats { get; set; }
+        public virtual ICollection<Reservation> Reservations { get; set; }
 
+        public BusRoute()
+        {
+            Reservations = new HashSet<Reservation>();
+        }
 
     }
 }

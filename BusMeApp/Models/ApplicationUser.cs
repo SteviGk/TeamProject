@@ -15,7 +15,7 @@ namespace BusMeApp.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string IdentityCard { get; set; }
-        public virtual ICollection<BusRoute> BusRoutes { get; set; }
+        public virtual ICollection<Reservation> Reservations { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -26,7 +26,7 @@ namespace BusMeApp.Models
 
         public ApplicationUser()
         {
-            BusRoutes = new HashSet<BusRoute>();
+            Reservations = new HashSet<Reservation>();
         }
     }
 }
