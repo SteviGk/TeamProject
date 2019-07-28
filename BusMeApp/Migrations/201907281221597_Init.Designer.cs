@@ -13,7 +13,7 @@ namespace BusMeApp.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201907281156062_Init"; }
+            get { return "201907281221597_Init"; }
         }
         
         string IMigrationMetadata.Source
