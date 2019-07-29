@@ -12,11 +12,12 @@ namespace BusMeApp.Models
     {
         [Key]
         public int Id { get; set; }
-
         [Required(ErrorMessage = "You must input departure time and date."),DataType(DataType.DateTime)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy HH:mm}")]
         public DateTime Departure { get; set; }
-
+        [GreaterThan("Departure")]
+        [Required(ErrorMessage = "You must input arrival time and date."), DataType(DataType.DateTime)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy HH:mm}")]     
         [Required(ErrorMessage = "You must input arrival time and date."), DataType(DataType.DateTime)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy HH:mm}")]
         public DateTime Arrival { get; set; }
@@ -44,12 +45,14 @@ namespace BusMeApp.Models
 
         [Required]
         [DisplayName("Available Seats")]
-        [Range(0, 100, ErrorMessage = "Please enter a price between 0 and 100")]
+
+        [Range(1, 50, ErrorMessage = "Please enter available seats between 1 and 50")]
         public int AvailableSeats { get; set; }
 
+        [LessThanOrEqualTo("AvailableSeats")]
         [Required]
         [DisplayName("Remaining Seats")]
-        [Range(0, 100, ErrorMessage = "Please enter a price between 0 and 100")]
+        [Range(1, 50, ErrorMessage = "Please enter available seats between 1 and 50")]
         public int RemainingSeats { get; set; }
 
         public ICollection<ApplicationUser> Passengers;

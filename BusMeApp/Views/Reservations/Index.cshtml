@@ -1,26 +1,25 @@
-﻿@model IEnumerable<BusMeApp.Models.ApplicationUser>
+@model IEnumerable<BusMeApp.Models.Reservation>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Passengers</h2>
-
+<h2>Reservations</h2>
+<div id="new-btn">
+    @Html.ActionLink("New", "Create", new { }, new { @class = "btn btn-primary" })
+</div>
 <div class="table-responsive ">
     <table class="table table-bordered table-sm">
         <thead class="thead-dark">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.FirstName)
+                    @Html.DisplayNameFor(model => model.BusRouteId)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.LastName)
-                </th>
+                    @Html.DisplayNameFor(model => model.PassengerId)
+                </th>                
                 <th>
-                    @Html.DisplayNameFor(model => model.IdentityCard)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Email)
+                    @Html.DisplayNameFor(model => model.NumberOfTickets)
                 </th>
                 <th></th>
             </tr>
@@ -29,17 +28,15 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.FirstName)
+                        @Html.DisplayFor(modelItem => item.BusRouteId)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.LastName)
-                    </td>
+                        @Html.DisplayFor(modelItem => item.PassengerId)
+                    </td>                  
                     <td>
-                        @Html.DisplayFor(modelItem => item.IdentityCard)
+                        @Html.DisplayFor(modelItem => item.NumberOfTickets)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
+
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
                         @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
@@ -49,4 +46,3 @@
         </tbody>
     </table>
 </div>
-
