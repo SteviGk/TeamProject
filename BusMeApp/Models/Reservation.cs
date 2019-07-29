@@ -5,6 +5,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using BusMeApp.Models;
+using System.ComponentModel;
 
 namespace BusMeApp.Models
 {
@@ -21,6 +22,9 @@ namespace BusMeApp.Models
         [ForeignKey("Route")]
         public int BusRouteId { get; set; }
         public virtual BusRoute Route { get; set; }
+        [Required]
+        [DisplayName("Number of tickets")]
+        [Range(1, 100, ErrorMessage = "Please enter a price between 0 and 10")]
         public int NumberOfTickets { get; set; }
     }
 }

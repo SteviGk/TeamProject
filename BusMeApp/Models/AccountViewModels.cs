@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace BusMeApp.Models
@@ -79,6 +80,24 @@ namespace BusMeApp.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [DisplayName("First Name")]
+        [Required(ErrorMessage = "You must input the first name of the passenger.")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Please use only letters.")]
+        [StringLength(50)]
+        public string FirstName { get; set; }
+
+        [DisplayName("Last Name")]
+        [Required(ErrorMessage = "You must input the last name of the passenger.")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Please use only letters.")]
+        [StringLength(50)]
+        public string LastName { get; set; }
+
+        [DisplayName("Identity Card")]
+        [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Only numbers and letters are allowed.")]
+        [MinLength(8, ErrorMessage = "The identity card must contain only 8 letters.")]
+        [MaxLength(8, ErrorMessage = "The identity card must contain only 8 letters.")]
+        public string IdentityCard { get; set; }
     }
 
     public class ResetPasswordViewModel
