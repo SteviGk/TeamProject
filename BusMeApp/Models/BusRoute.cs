@@ -18,8 +18,6 @@ namespace BusMeApp.Models
         [GreaterThan("Departure")]
         [Required(ErrorMessage = "You must input arrival time and date."), DataType(DataType.DateTime)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy HH:mm}")]     
-        [Required(ErrorMessage = "You must input arrival time and date."), DataType(DataType.DateTime)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy HH:mm}")]
         public DateTime Arrival { get; set; }
 
         [Required]
