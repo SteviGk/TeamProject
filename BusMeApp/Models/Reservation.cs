@@ -24,7 +24,7 @@ namespace BusMeApp.Models
         public virtual BusRoute Route { get; set; }
         [Required]
         [DisplayName("Number of tickets")]
-        [Range(1, 100, ErrorMessage = "Please enter a price between 0 and 10")]
+        [Range(1, 40, ErrorMessage = "Please enter a price between 0 and 50")]
         public int NumberOfTickets { get; set; }
     }
 }

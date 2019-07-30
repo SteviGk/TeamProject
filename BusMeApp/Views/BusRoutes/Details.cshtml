@@ -1,0 +1,74 @@
+﻿@model IEnumerable<BusMeApp.Models.BusRoute>
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Bus Routes</h2>
+
+<div class="table-responsive ">
+    <table class="table table-bordered table-sm">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Departure)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Arrival)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Type)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FromCityId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ToCityId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AvailableSeats)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RemainingSeats)
+                </th>
+                <th></th>
+            </tr>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Departure)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Arrival)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FromCityId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ToCityId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AvailableSeats)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RemainingSeats)
+                </td>
+                <td>
+                    @Html.ActionLink("Reservation", "Create","Reservations", new { id = item.Id }, new { @class = "btn btn-primary" })                 
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

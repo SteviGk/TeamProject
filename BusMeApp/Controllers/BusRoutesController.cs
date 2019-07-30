@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace BusMeApp.Controllers
 {
+    [Authorize]
     public class BusRoutesController : Controller
     {
         // GET: BusRoutes
@@ -21,8 +22,16 @@ namespace BusMeApp.Controllers
 
         public ActionResult Details()
         {
-            var busRoutes = db.GetBusRoutes();
-            return View(busRoutes);
+            if (!User.IsInRole("Admin"))
+            {
+                var busRoutes = db.GetBusRoutes();
+                return View(busRoutes);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+            
         }
 
         [Authorize(Roles = "Administrator")]
