@@ -81,10 +81,13 @@ namespace BusMeApp.Managers
             return user;
         }
 
-        public void UpdatePassenger(ApplicationUser user)
+        public void UpdatePassenger(ApplicationUser user,string name,string password)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
+                user.UserName = name;
+                user.Email = name;
+                user.PasswordHash = password;
                 db.Users.Attach(user);
                 db.Entry(user).State = EntityState.Modified;
                     db.SaveChanges();          
@@ -134,16 +137,17 @@ namespace BusMeApp.Managers
             return reservation;
         }
 
-        public bool AddReservation(Reservation reservation)
+        public bool AddReservation(Reservation reservation,string name)
         {
             bool flag = false;
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
                 BusRoute busRoute = db.BusRoutes.Find(reservation.BusRouteId);
                 busRoute.RemainingSeats -= reservation.NumberOfTickets;
-
-                if (busRoute.AvailableSeats >= 0)
+                ApplicationUser user = db.Users.FirstOrDefault(x=>x.UserName==name);
+                if (busRoute.RemainingSeats >= 0)
                 {
+                    reservation.PassengerId = user.Id;
                     db.Reservations.Add(reservation);
                     db.BusRoutes.Attach(busRoute);
                     db.Entry(busRoute).State = EntityState.Modified;
@@ -166,23 +170,27 @@ namespace BusMeApp.Managers
             return result;
         }
 
-        public void UpdateReservation(Reservation reservation)
+        public bool UpdateReservation(Reservation reservation,string name)
         {
-
+            bool flag = false;
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
                 int prevReservedSeats = TotalSeatsValueRollback(reservation.Id);
                 BusRoute busRoute = db.BusRoutes.Find(reservation.BusRouteId);
-                busRoute.AvailableSeats = busRoute.AvailableSeats - reservation.NumberOfTickets + prevReservedSeats;
-                if (busRoute.AvailableSeats >= 0)
+                busRoute.RemainingSeats= busRoute.RemainingSeats - reservation.NumberOfTickets + prevReservedSeats;
+                ApplicationUser user = db.Users.FirstOrDefault(x => x.UserName == name);
+                if (busRoute.RemainingSeats >= 0)
                 {
+                    reservation.PassengerId = user.Id;
                     db.BusRoutes.Attach(busRoute);
                     db.Entry(busRoute).State = EntityState.Modified;
                     db.Reservations.Attach(reservation);
                     db.Entry(reservation).State = EntityState.Modified;
                     db.SaveChanges();
+                    flag = true;
                 }
             }
+            return flag;
         }
 
         public void DeleteReservation(int id)
@@ -191,7 +199,7 @@ namespace BusMeApp.Managers
             {
                 Reservation reservation = db.Reservations.Find(id);
                 BusRoute busRoute = db.BusRoutes.Find(reservation.BusRouteId);
-                busRoute.AvailableSeats += reservation.NumberOfTickets;
+                busRoute.RemainingSeats += reservation.NumberOfTickets;
                 db.Reservations.Remove(reservation);
                 db.BusRoutes.Attach(busRoute);
                 db.Entry(busRoute).State = EntityState.Modified;
@@ -224,7 +232,7 @@ namespace BusMeApp.Managers
         public void AddBusRoute(BusRoute busRoute)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
-            {
+            {              
                 db.BusRoutes.Add(busRoute);
                 db.SaveChanges();
             }

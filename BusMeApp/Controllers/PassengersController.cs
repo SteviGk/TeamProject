@@ -37,7 +37,9 @@ namespace BusMeApp.Controllers
             {               
                 return View(user);
             }
-            db.UpdatePassenger(user);
+            string name = user.UserName;
+            string password = user.PasswordHash;
+            db.UpdatePassenger(user,name,password);
             return RedirectToAction("Index");
         }
 

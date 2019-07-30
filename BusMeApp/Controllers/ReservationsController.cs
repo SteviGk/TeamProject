@@ -13,25 +13,31 @@ namespace BusMeApp.Controllers
     {
         // GET: Reservations
         private DbManager db = new DbManager();
+
         public ActionResult Index()
         {
-            if(User.IsInRole("Administrator"))
-            {
-                var reservations = db.GetReservations();
-                return View(reservations);
-            }
-            else
+            if (!User.IsInRole("Administrator"))
             {
                 string name = User.Identity.Name;
                 var reservations = db.GetReservations(name);
                 return View(reservations);
-            }  
+            }
+            else
+            {
+                var reservations = db.GetReservations();
+                return View(reservations);
+            }
         }
 
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
+            if (User.IsInRole("Administrator"))
+            {
+                return RedirectToAction("Index");
+            }
+
             ViewBag.PassengerId = new SelectList(db.GetPassengers(), "Id", "Id");
-            ViewBag.BusRouteId = new SelectList(db.GetBusRoutes(), "Id", "Id");
+            ViewBag.BusRouteId = id;
             return View();
         }
 
@@ -45,7 +51,8 @@ namespace BusMeApp.Controllers
                 ViewBag.BusRouteId = new SelectList(db.GetBusRoutes(), "Id", "Id");
                 return View(reservation);
             }
-            if (db.AddReservation(reservation))
+            string name = User.Identity.Name;
+            if (db.AddReservation(reservation, name))
             {
                 return RedirectToAction("Index");
             }
@@ -77,8 +84,15 @@ namespace BusMeApp.Controllers
                 ViewBag.BusRouteId = new SelectList(db.GetBusRoutes(), "Id", "Id");
                 return View(reservation);
             }
-            db.UpdateReservation(reservation);
-            return RedirectToAction("Index");
+            string name = User.Identity.Name;
+            if (db.UpdateReservation(reservation, name))
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return Content("No more available seats");
+            }
         }
 
         public ActionResult Delete(int id)
