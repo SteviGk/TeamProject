@@ -60,10 +60,15 @@ namespace BusMeApp.Migrations
                     }
                 }
 
-                context.Cities.Add(new City { CityName = "Athens" });
-                context.Cities.Add(new City { CityName = "Arta" });
-                context.Cities.Add(new City { CityName = "Ioannina" });
-                context.SaveChanges();
+                if (!context.Cities.Any())
+                {
+                    context.Cities.Add(new City { CityName = "Athens" });
+                    context.Cities.Add(new City { CityName = "Arta" });
+                    context.Cities.Add(new City { CityName = "Ioannina" });
+                    context.SaveChanges();
+                }
+
+                
             }
             catch (DbEntityValidationException ex)
             {
