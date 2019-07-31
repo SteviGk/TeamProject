@@ -211,6 +211,10 @@
     <Compile Include="Migrations\201907291636228_BusRoute Model Updated.Designer.cs">
       <DependentUpon>201907291636228_BusRoute Model Updated.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907310920201_Changed Foreign Keys .cs" />
+    <Compile Include="Migrations\201907310920201_Changed Foreign Keys .Designer.cs">
+      <DependentUpon>201907310920201_Changed Foreign Keys .cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -334,6 +338,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907291636228_BusRoute Model Updated.resx">
       <DependentUpon>201907291636228_BusRoute Model Updated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907310920201_Changed Foreign Keys .resx">
+      <DependentUpon>201907310920201_Changed Foreign Keys .cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

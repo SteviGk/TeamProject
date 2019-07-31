@@ -5,34 +5,39 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 
 namespace BusMeApp.Models
 {   
     public class BusRoute
-    {
+    {       
         [Key]
         public int Id { get; set; }
+
         [Required(ErrorMessage = "You must input departure time and date."),DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}",ApplyFormatInEditMode =true)]
         public DateTime Departure { get; set; }
+
         [GreaterThan("Departure")]
         [Required(ErrorMessage = "You must input arrival time and date."), DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}",ApplyFormatInEditMode =true)]     
         public DateTime Arrival { get; set; }
-
+    
         [Required]
         public RouteType Type { get; set; }
 
+        [ForeignKey("From")]
         [Required]      
         [DisplayName("From City")]
-        public string FromCityId { get; set; }
+        public int FromCityId { get; set; }
 
         public virtual City From { get; set; }
 
+        [ForeignKey("To")]
         [Required]
         [DisplayName("To City")]
         [NotEqualTo("FromCityId", ErrorMessage = "City names must be different")]
-        public string ToCityId { get; set; }
+        public int ToCityId { get; set; }
         public virtual City To { get; set; }
 
         [Required(ErrorMessage = "You must input a price.")]
