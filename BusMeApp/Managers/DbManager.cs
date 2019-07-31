@@ -209,6 +209,16 @@ namespace BusMeApp.Managers
         #endregion
 
         #region BusRoutes
+
+        public ICollection<BusRoute> SearchBusRoute(DateTime departure, string fromCityId, string toCityId)
+        {
+            ICollection<BusRoute> busRoutes;
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                busRoutes = db.BusRoutes.Where(i=> i.Departure.ToShortDateString() == departure.ToShortDateString() && i.FromCityId == fromCityId && i.ToCityId == toCityId).ToList();
+            }
+            return busRoutes;
+        }
         public ICollection<BusRoute> GetBusRoutes()
         {
             ICollection<BusRoute> busRoutes;

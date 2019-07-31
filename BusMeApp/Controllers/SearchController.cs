@@ -28,7 +28,7 @@ namespace BusMeApp.Controllers
                 return View(vm);
             }
 
-            
+            var busRoutes = db.SearchBusRoute(vm.Departure, vm.FromCityId.ToString(), vm.ToCityId.ToString());
             return View();
         }
     }
