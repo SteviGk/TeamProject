@@ -1,5 +1,6 @@
 ﻿using BusMeApp.Managers;
 using BusMeApp.Models;
+using BusMeApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -111,6 +112,30 @@ namespace BusMeApp.Controllers
         {
             db.DeleteBusRoute(id);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Search()
+        {
+            var cities = db.GetCities().AsEnumerable();
+            ViewBag.FromCityId = new SelectList(cities, "Id", "CityName");
+            ViewBag.ToCityId = new SelectList(cities, "Id", "CityName");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Search(SearchViewModel vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                var cities = db.GetCities().AsEnumerable();
+                ViewBag.FromCityId = new SelectList(cities, "Id", "CityName");
+                ViewBag.ToCityId = new SelectList(cities, "Id", "CityName");
+                return View(vm);
+            }
+
+            var busRoutes = db.SearchBusRoute(vm.Departure, vm.FromCityId, vm.ToCityId);
+            return View("Index", busRoutes);
         }
     }
 }

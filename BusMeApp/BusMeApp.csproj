@@ -190,7 +190,6 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PassengersController.cs" />
     <Compile Include="Controllers\ReservationsController.cs" />
-    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -306,6 +305,7 @@
     <Content Include="Views\Reservations\Index.cshtml" />
     <Content Include="Views\Reservations\Create.cshtml" />
     <Content Include="Views\BusRoutes\Details.cshtml" />
+    <Content Include="Views\BusRoutes\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewModels\SearchViewModel.cs" />

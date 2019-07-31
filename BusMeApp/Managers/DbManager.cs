@@ -210,12 +210,12 @@ namespace BusMeApp.Managers
 
         #region BusRoutes
 
-        public ICollection<BusRoute> SearchBusRoute(DateTime departure, string fromCityId, string toCityId)
+        public ICollection<BusRoute> SearchBusRoute(DateTime departure, int fromCityId, int toCityId)
         {
             ICollection<BusRoute> busRoutes;
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                busRoutes = db.BusRoutes.Where(i=> i.Departure.ToShortDateString() == departure.ToShortDateString() && i.FromCityId == fromCityId && i.ToCityId == toCityId).ToList();
+                busRoutes = db.BusRoutes.Where(i=> i.Departure.Year == departure.Year && i.Departure.Month == departure.Month && i.Departure.Day == departure.Day && i.FromCityId == fromCityId && i.ToCityId == toCityId).ToList();
             }
             return busRoutes;
         }
