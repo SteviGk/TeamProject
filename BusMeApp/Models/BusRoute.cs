@@ -38,6 +38,7 @@ namespace BusMeApp.Models
         [DisplayName("To City")]
         [NotEqualTo("FromCityId", ErrorMessage = "City names must be different")]
         public int ToCityId { get; set; }
+
         public virtual City To { get; set; }
 
         [Required(ErrorMessage = "You must input a price.")]

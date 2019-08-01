@@ -3,6 +3,7 @@ using BusMeApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -58,7 +59,7 @@ namespace BusMeApp.Controllers
             }
             else
             {
-                return Content("No more available seats");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
         }
 
@@ -91,7 +92,7 @@ namespace BusMeApp.Controllers
             }
             else
             {
-                return Content("No more available seats");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
         }
 

@@ -8,6 +8,7 @@
 
 <div id="new-btn">
     @Html.ActionLink("New", "Create", new { }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Search", "Search", new { }, new { @class = "btn btn-primary" })
 </div>
 
 <div class="table-responsive ">
@@ -45,10 +46,10 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.FromCityId)
+                        @Html.DisplayFor(modelItem => item.From.CityName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ToCityId)
+                        @Html.DisplayFor(modelItem => item.To.CityName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Departure)

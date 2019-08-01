@@ -6,10 +6,20 @@
 
 <h2>Bus Routes</h2>
 
+<div id="new-btn">
+    @Html.ActionLink("Search", "Search", new { }, new { @class = "btn btn-primary" })
+</div>
+
 <div class="table-responsive ">
     <table class="table table-bordered table-sm">
         <thead class="thead-dark">
             <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FromCityId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ToCityId)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Departure)
                 </th>
@@ -18,12 +28,6 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Type)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FromCityId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ToCityId)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Price)
@@ -41,6 +45,12 @@
             {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.From.CityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.To.CityName)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Departure)
                 </td>
                 <td>
@@ -48,12 +58,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Type)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FromCityId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ToCityId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)
@@ -65,7 +69,7 @@
                     @Html.DisplayFor(modelItem => item.RemainingSeats)
                 </td>
                 <td>
-                    @Html.ActionLink("Reservation", "Create","Reservations", new { id = item.Id }, new { @class = "btn btn-primary" })                 
+                    @Html.ActionLink("Reservation", "Create", "Reservations", new { id = item.Id }, new { @class = "btn btn-primary" })
                 </td>
             </tr>
             }

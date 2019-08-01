@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-  
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -21,7 +21,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Departure, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Departure,new { htmlAttributes = new { @class = "form-control", @placeholder = "dd/MM/yyyy HH:mm" } })
+                @Html.EditorFor(model => model.Departure, new { htmlAttributes = new { @class = "form-control", @placeholder = "dd/MM/yyyy HH:mm" } })
                 @Html.ValidationMessageFor(model => model.Departure, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -43,18 +43,18 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.From.CityName, "FromCityId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.FromCityId, "From City", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("FromCityId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.From.CityName, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.FromCityId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.To.CityName, "ToCityId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ToCityId, "To City", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("ToCityId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.To.CityName, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.ToCityId, "", new { @class = "text-danger" })
             </div>
         </div>
 

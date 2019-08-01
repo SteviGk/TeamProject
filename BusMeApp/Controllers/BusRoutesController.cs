@@ -51,7 +51,7 @@ namespace BusMeApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var cities = db.GetCities().AsEnumerable();
+                var cities = db.GetCities().AsEnumerable();            
                 ViewBag.FromCityId = new SelectList(cities, "Id", "CityName");
                 ViewBag.ToCityId = new SelectList(cities, "Id", "CityName");
                 return View(busRoute);
@@ -65,8 +65,8 @@ namespace BusMeApp.Controllers
         {
             BusRoute busRoute = db.GetBusRoute(id);
             var cities = db.GetCities().AsEnumerable();
-            ViewBag.FromCityId = new SelectList(cities, "Id", "CityName", busRoute.FromCityId);
-            ViewBag.ToCityId = new SelectList(cities, "Id", "CityName", busRoute.ToCityId);
+            ViewBag.FromCityId = new SelectList(cities, "Id", "CityName");
+            ViewBag.ToCityId = new SelectList(cities, "Id", "CityName");
             if (busRoute == null)
             {
                 return HttpNotFound();
@@ -135,7 +135,7 @@ namespace BusMeApp.Controllers
             }
 
             var busRoutes = db.SearchBusRoute(vm.Departure, vm.FromCityId, vm.ToCityId);
-            return View("Index", busRoutes);
+            return View("Details", busRoutes);
         }
     }
 }

@@ -11,11 +11,23 @@
         <thead class="thead-dark">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.BusRouteId)
+                    @Html.DisplayNameFor(model => model.Route.FromCityId)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PassengerId)
-                </th>                
+                    @Html.DisplayNameFor(model => model.Route.ToCityId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Route.Departure)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Route.Arrival)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Route.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Passenger.IdentityCard)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.NumberOfTickets)
                 </th>
@@ -24,22 +36,34 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.BusRouteId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PassengerId)
-                    </td>                  
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NumberOfTickets)
-                    </td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Route.From.CityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Route.To.CityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Route.Departure)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Route.Arrival)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Route.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Passenger.IdentityCard)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberOfTickets)
+                </td>
 
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
-                    </td>
-                </tr>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
             }
         </tbody>
     </table>

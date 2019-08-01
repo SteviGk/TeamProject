@@ -11,6 +11,7 @@ namespace BusMeApp.Models
         public int Id { get; set; }
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Please use only letters.")]
         [StringLength(30)]
+        [Display(Name ="City Name")]
         public string CityName { get; set; }
     }
 }

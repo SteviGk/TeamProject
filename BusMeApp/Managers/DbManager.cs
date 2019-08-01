@@ -111,7 +111,7 @@ namespace BusMeApp.Managers
             ICollection<Reservation> reservations;
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                reservations = db.Reservations.ToList();
+                reservations = db.Reservations.Include("Passenger").Include("Route").Include("Route.From").Include("Route.To").ToList();
             }
             return reservations;
         }
@@ -122,7 +122,7 @@ namespace BusMeApp.Managers
             ICollection<Reservation> reservations;
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                reservations = db.Reservations.Where(x=>x.Passenger.UserName==id).ToList();
+                reservations = db.Reservations.Where(x=>x.Passenger.UserName==id).Include("Passenger").Include("Route").Include("Route.From").Include("Route.To").ToList();
             }
             return reservations;
         }
@@ -224,7 +224,10 @@ namespace BusMeApp.Managers
             ICollection<BusRoute> busRoutes;
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                busRoutes = db.BusRoutes.ToList();
+                busRoutes = db.BusRoutes
+                              .Include("From")
+                              .Include("To")
+                              .ToList();
             }
             return busRoutes;
         }
