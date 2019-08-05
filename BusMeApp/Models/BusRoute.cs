@@ -13,7 +13,7 @@ namespace BusMeApp.Models
     {       
         [Key]
         public int Id { get; set; }
-
+        [CheckDateRange]
         [Required(ErrorMessage = "You must input departure time and date."),DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}",ApplyFormatInEditMode =true)]
         public DateTime Departure { get; set; }
@@ -58,5 +58,20 @@ namespace BusMeApp.Models
         public int RemainingSeats { get; set; }
 
         public ICollection<ApplicationUser> Passengers;
+    }
+
+    public class CheckDateRangeAttribute : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            DateTime dt = (DateTime)value;
+            if (dt >= DateTime.UtcNow)
+            {
+                return ValidationResult.Success;
+            }
+
+            return new ValidationResult(ErrorMessage ?? "Make sure your date is equal or greater than today");
+        }
+
     }
 }

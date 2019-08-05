@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Security.Principal;
+using System.Web.Mvc;
 
 namespace BusMeApp.Managers
 {
@@ -81,7 +83,7 @@ namespace BusMeApp.Managers
             return user;
         }
 
-        public void UpdatePassenger(ApplicationUser user,string name,string password)
+        public void UpdatePassenger(ApplicationUser user, string name, string password)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
@@ -90,7 +92,7 @@ namespace BusMeApp.Managers
                 user.PasswordHash = password;
                 db.Users.Attach(user);
                 db.Entry(user).State = EntityState.Modified;
-                    db.SaveChanges();          
+                db.SaveChanges();
             }
         }
 
@@ -122,7 +124,7 @@ namespace BusMeApp.Managers
             ICollection<Reservation> reservations;
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                reservations = db.Reservations.Where(x=>x.Passenger.UserName==id).Include("Passenger").Include("Route").Include("Route.From").Include("Route.To").ToList();
+                reservations = db.Reservations.Where(x => x.Passenger.UserName == id).Include("Passenger").Include("Route").Include("Route.From").Include("Route.To").ToList();
             }
             return reservations;
         }
@@ -137,17 +139,18 @@ namespace BusMeApp.Managers
             return reservation;
         }
 
-        public bool AddReservation(Reservation reservation,string name)
+        public bool AddReservation(Reservation reservation, string name)
         {
             bool flag = false;
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
                 BusRoute busRoute = db.BusRoutes.Find(reservation.BusRouteId);
                 busRoute.RemainingSeats -= reservation.NumberOfTickets;
-                ApplicationUser user = db.Users.FirstOrDefault(x=>x.UserName==name);
+                ApplicationUser user = db.Users.FirstOrDefault(x => x.UserName == name);
                 if (busRoute.RemainingSeats >= 0)
                 {
                     reservation.PassengerId = user.Id;
+                    reservation.TotalPrice = busRoute.Price * reservation.NumberOfTickets;
                     db.Reservations.Add(reservation);
                     db.BusRoutes.Attach(busRoute);
                     db.Entry(busRoute).State = EntityState.Modified;
@@ -170,18 +173,19 @@ namespace BusMeApp.Managers
             return result;
         }
 
-        public bool UpdateReservation(Reservation reservation,string name)
+        public bool UpdateReservation(Reservation reservation, string name)
         {
             bool flag = false;
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
                 int prevReservedSeats = TotalSeatsValueRollback(reservation.Id);
-                BusRoute busRoute = db.BusRoutes.Find(reservation.BusRouteId);
-                busRoute.RemainingSeats= busRoute.RemainingSeats - reservation.NumberOfTickets + prevReservedSeats;
+                BusRoute busRoute = db.BusRoutes.Find(reservation.BusRouteId);         
+                busRoute.RemainingSeats = busRoute.RemainingSeats - reservation.NumberOfTickets + prevReservedSeats;
                 ApplicationUser user = db.Users.FirstOrDefault(x => x.UserName == name);
                 if (busRoute.RemainingSeats >= 0)
                 {
                     reservation.PassengerId = user.Id;
+                    reservation.TotalPrice = busRoute.Price * reservation.NumberOfTickets;
                     db.BusRoutes.Attach(busRoute);
                     db.Entry(busRoute).State = EntityState.Modified;
                     db.Reservations.Attach(reservation);
@@ -215,7 +219,11 @@ namespace BusMeApp.Managers
             ICollection<BusRoute> busRoutes;
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                busRoutes = db.BusRoutes.Where(i=> i.Departure.Year == departure.Year && i.Departure.Month == departure.Month && i.Departure.Day == departure.Day && i.FromCityId == fromCityId && i.ToCityId == toCityId).ToList();
+                busRoutes = db.BusRoutes
+                    .Where(i => i.Departure.Year == departure.Year && i.Departure.Month == departure.Month && i.Departure.Day == departure.Day && i.FromCityId == fromCityId && i.ToCityId == toCityId)
+                    .Include("From")
+                    .Include("To")
+                    .ToList();
             }
             return busRoutes;
         }
@@ -245,7 +253,7 @@ namespace BusMeApp.Managers
         public void AddBusRoute(BusRoute busRoute)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
-            {              
+            {
                 db.BusRoutes.Add(busRoute);
                 db.SaveChanges();
             }
@@ -270,6 +278,51 @@ namespace BusMeApp.Managers
                 db.SaveChanges();
             }
         }
+        #endregion
+
+        #region Chat
+        public ICollection<ApplicationUser> GetUsers(string name)
+        {
+            ICollection<ApplicationUser> users;
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                if (name == "admin@busmeapp.com")
+                {
+                    users = db.Users.Where(x => x.UserName != name).ToList();
+                }
+                else
+                {
+                    users = db.Users.Where(x => x.UserName == "admin@busmeapp.com").ToList();
+                }
+            }
+            return users;
+        }
+
+        public void AddPost(Post post)
+        {
+
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                if (!string.IsNullOrEmpty(post.Text))
+                {
+                    db.Posts.Add(post);
+                    db.SaveChanges();
+                }
+            }
+        }
+       
+        public ICollection<Post> GetPosts(string from,string to)
+        {
+            ICollection<Post> posts;
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                ApplicationUser userFrom = db.Users.FirstOrDefault(x => x.UserName == from);
+                ApplicationUser userTo= db.Users.FirstOrDefault(x => x.UserName == to);
+                posts = db.Posts.Where(x => x.FromUserId == userFrom.Id && x.ToUserId == userTo.Id).ToList();
+            }
+            return posts;
+        }
+
         #endregion
     }
 }

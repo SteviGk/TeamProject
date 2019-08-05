@@ -22,7 +22,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Email)
                 </th>
-                <th></th>
+                <th>Edit/Delete</th>
             </tr>
         <tbody>
             @foreach (var item in Model)
@@ -41,7 +41,7 @@
                         @Html.DisplayFor(modelItem => item.Email)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn btn-warning" })
                         @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
                     </td>
                 </tr>

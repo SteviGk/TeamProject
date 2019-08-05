@@ -31,7 +31,10 @@
                 <th>
                     @Html.DisplayNameFor(model => model.NumberOfTickets)
                 </th>
-                <th></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalPrice)
+                </th>
+                <th>Edit/Delete</th>
             </tr>
         <tbody>
             @foreach (var item in Model)
@@ -58,9 +61,11 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.NumberOfTickets)
                 </td>
-
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn btn-warning" })
                     @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
                 </td>
             </tr>

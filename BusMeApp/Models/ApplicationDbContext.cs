@@ -15,6 +15,7 @@ namespace BusMeApp.Models
         public DbSet<BusRoute> BusRoutes { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<Post> Posts { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

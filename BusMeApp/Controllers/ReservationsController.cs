@@ -37,7 +37,7 @@ namespace BusMeApp.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.PassengerId = new SelectList(db.GetPassengers(), "Id", "Id");
+            ViewBag.PassengerId = new SelectList(db.GetPassengers().AsEnumerable(), "Id", "Id");
             ViewBag.BusRouteId = id;
             return View();
         }
@@ -48,8 +48,8 @@ namespace BusMeApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.PassengerId = new SelectList(db.GetPassengers(), "Id", "Id");
-                ViewBag.BusRouteId = new SelectList(db.GetBusRoutes(), "Id", "Id");
+                ViewBag.PassengerId = new SelectList(db.GetPassengers().AsEnumerable(), "Id", "Id");
+                ViewBag.BusRouteId = new SelectList(db.GetBusRoutes().AsEnumerable(), "Id", "Id");
                 return View(reservation);
             }
             string name = User.Identity.Name;
@@ -66,8 +66,6 @@ namespace BusMeApp.Controllers
         public ActionResult Edit(int id)
         {
             Reservation reservation = db.GetReservation(id);
-            ViewBag.PassengerId = new SelectList(db.GetPassengers(), "Id", "Id");
-            ViewBag.BusRouteId = new SelectList(db.GetBusRoutes(), "Id", "Id");
             if (reservation == null)
             {
                 return HttpNotFound();
@@ -81,8 +79,8 @@ namespace BusMeApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.PassengerId = new SelectList(db.GetPassengers(), "Id", "Id");
-                ViewBag.BusRouteId = new SelectList(db.GetBusRoutes(), "Id", "Id");
+                ViewBag.PassengerId = new SelectList(db.GetPassengers().AsEnumerable(), "Id", "Id");
+                ViewBag.BusRouteId = new SelectList(db.GetBusRoutes().AsEnumerable(), "Id", "Id");
                 return View(reservation);
             }
             string name = User.Identity.Name;
@@ -99,8 +97,17 @@ namespace BusMeApp.Controllers
         public ActionResult Delete(int id)
         {
             Reservation reservation = db.GetReservation(id);
-            ViewBag.PassengerId = new SelectList(db.GetPassengers(), "Id", "Id");
-            ViewBag.BusRouteId = new SelectList(db.GetBusRoutes(), "Id", "Id");
+            ApplicationUser user = db.GetPassenger(reservation.PassengerId);
+            BusRoute busRoute = db.GetBusRoute(reservation.BusRouteId);
+            City cityFrom = db.GetCity(busRoute.FromCityId);
+            City cityTo = db.GetCity(busRoute.ToCityId);
+            ViewBag.FirstName = user.FirstName;
+            ViewBag.LastName = user.LastName;
+            ViewBag.IdenityCard= user.IdentityCard;
+            ViewBag.FromCityId = cityFrom.CityName;
+            ViewBag.ToCityId = cityTo.CityName;
+            ViewBag.Departure = busRoute.Departure;
+            ViewBag.Arrival = busRoute.Arrival;
             if (reservation == null)
             {
                 return HttpNotFound();

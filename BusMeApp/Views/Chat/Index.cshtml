@@ -1,0 +1,80 @@
+﻿@model BusMeApp.ViewModels.ChatViewModel
+
+
+
+
+
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            @using (Html.BeginForm())
+            {
+                <div class="col-md-6 col-md-pull-8 ml-auto">
+                    <div class="booking-form">
+                        <h2>Contact</h2>
+                        <form align="center">
+                            <address>
+                                <p style="color:aliceblue; text-align:center;"> You can chat live with the administrator of the page or you can send an e-mail.</p>
+                                <p style="color:aliceblue; text-align:center;"><strong>Support: </strong><a href="mailto:admin@busmeapp.com">admin@busmeapp.com</a><br /></p>
+                            </address>
+                            <div>
+                                <div class="form-group">
+                                    @Html.HiddenFor(m => m.UserName, new { id = "from" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.DropDownList("users", (SelectList)ViewBag.User, new { id = "to" })
+                                </div>
+                                <div class="form-group">
+                                    <textarea style="resize:none" id="message" rows="5" cols="50"> </textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" id="send" style="margin-bottom:10px;">Send</button>
+                                </div>
+                                <div id="messages" class="bubble">
+
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+
+    <script>
+        $(document).ready(() => {
+            let chat = $.connection.chatHub;
+            
+            //Get Message from Hub
+            chat.client.gotMessage = (to, message) => {
+                $('#messages').append(`<p>${to}:${message}</p>`);
+            }
+
+            //start the connection
+            $.connection.hub.start().done(() => {
+                // only when connected call chat.server
+                $('#send').click(() => {
+                    //Send message to hub by calling its Method
+                    chat.server.sendToUser($('#from').val(), $('#to').val(), $('#message').val());
+                    //append my own message
+                    $('#messages').show();
+                    $('#messages').append(`<p><Strong>Me:</Strong> ${$('#message').val()}</p>`);
+                    //reset message input
+                    $('#message').val('').focus();
+                });
+            });
+
+        });
+    </script>
+
+}
+
+
+
+
