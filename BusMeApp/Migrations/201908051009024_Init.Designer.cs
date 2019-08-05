@@ -7,13 +7,13 @@ namespace BusMeApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class modelsupdated : IMigrationMetadata
+    public sealed partial class Init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(modelsupdated));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201907290854498_models updated"; }
+            get { return "201908051009024_Init"; }
         }
         
         string IMigrationMetadata.Source

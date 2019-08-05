@@ -28,5 +28,6 @@ namespace BusMeApp.Models
         public int NumberOfTickets { get; set; }
         [DisplayName("Total Price")]
         public decimal TotalPrice { get; set; }
+        public bool PaymentCompleted { get; set; } = false;
     }
 }

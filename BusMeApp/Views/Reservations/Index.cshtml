@@ -65,8 +65,11 @@
                     @Html.DisplayFor(modelItem => item.TotalPrice)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn btn-warning" })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    @*@Html.ActionLink("", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })*@
+                    <a id="@item.Id" class="btn btn-primary" href="@Url.Action("PaymentWithPaypal","Paypal",new { id = item.Id})" >
+                        <i class="fab fa-paypal"></i>
+                    </a>
+                    @Html.ActionLink("Cancel", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
                 </td>
             </tr>
             }
