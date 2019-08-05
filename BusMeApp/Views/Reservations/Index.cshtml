@@ -34,7 +34,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.TotalPrice)
                 </th>
-                <th>Edit/Delete</th>
+                <th>Pay/Delete</th>
             </tr>
         <tbody>
             @foreach (var item in Model)
@@ -66,9 +66,12 @@
                 </td>
                 <td>
                     @*@Html.ActionLink("", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })*@
-                    <a id="@item.Id" class="btn btn-primary" href="@Url.Action("PaymentWithPaypal","Paypal",new { id = item.Id})" >
-                        <i class="fab fa-paypal"></i>
-                    </a>
+                    @if (!User.IsInRole("Administrator"))
+                    {
+                        <a id="@item.Id" class="btn btn-primary" href="@Url.Action("PaymentWithPaypal","Paypal",new { id = item.Id})">
+                            <i class="fab fa-paypal"></i>
+                        </a>
+                    }
                     @Html.ActionLink("Cancel", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
                 </td>
             </tr>

@@ -10,28 +10,30 @@
     @Html.ActionLink("New", "Create", new { }, new { @class = "btn btn-primary" })
 </div>
 
-
-<table class="table table-bordered table-sm" id="city-table">
-    <thead class="thead-dark">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CityName)
-            </th>
-            <th>Edit/Delete</th>
-        </tr>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="table-responsive ">
+    <table class="table table-bordered table-sm" id="city-table">
+        <thead class="thead-dark">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CityName)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn btn-warning" })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.CityName)
+                </th>
+                <th>Edit/Delete</th>
             </tr>
-        }
-    </tbody>
-</table>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CityName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn btn-warning" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
 

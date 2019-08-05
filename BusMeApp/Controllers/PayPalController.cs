@@ -36,7 +36,7 @@ namespace BusMeApp.Controllers
                     var guid = Convert.ToString((new Random()).Next(100000));
                     //CreatePayment function gives us the payment approval url  
                     //on which payer is redirected for paypal account payment  
-                    var createdPayment = this.CreatePayment(apiContext, baseURI + "guid=" + guid, r);
+                    var createdPayment = CreatePayment(apiContext, baseURI + "guid=" + guid, r);
                     //get links returned from paypal in response to Create function call  
                     var links = createdPayment.links.GetEnumerator();
                     string paypalRedirectUrl = null;
@@ -72,18 +72,18 @@ namespace BusMeApp.Controllers
             //on successful payment, show success page to user.  
             return View("SuccessView");
         }
-        private PayPal.Api.Payment payment;
+        private Payment payment;
         private Payment ExecutePayment(APIContext apiContext, string payerId, string paymentId)
         {
             var paymentExecution = new PaymentExecution()
             {
                 payer_id = payerId
             };
-            this.payment = new Payment()
+            payment = new Payment()
             {
                 id = paymentId
             };
-            return this.payment.Execute(apiContext, paymentExecution);
+            return payment.Execute(apiContext, paymentExecution);
         }
         private Payment CreatePayment(APIContext apiContext, string redirectUrl, Reservation reservation)
         {
@@ -134,7 +134,7 @@ namespace BusMeApp.Controllers
                 amount = amount,
                 item_list = itemList
             });
-            this.payment = new Payment()
+            payment = new Payment()
             {
                 intent = "sale",
                 payer = payer,
@@ -142,7 +142,7 @@ namespace BusMeApp.Controllers
                 redirect_urls = redirUrls
             };
             // Create a payment using a APIContext  
-            return this.payment.Create(apiContext);
+            return payment.Create(apiContext);
         }
     }
 }

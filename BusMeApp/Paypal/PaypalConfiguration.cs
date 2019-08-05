@@ -21,7 +21,7 @@ namespace BusMeApp
         // getting properties from the web.config  
         public static Dictionary<string, string> GetConfig()
         {
-            return PayPal.Api.ConfigManager.Instance.GetProperties();
+            return ConfigManager.Instance.GetProperties();
         }
         private static string GetAccessToken()
         {
