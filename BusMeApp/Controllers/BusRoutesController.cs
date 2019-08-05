@@ -94,9 +94,10 @@ namespace BusMeApp.Controllers
         public ActionResult Delete(int id)
         {
             BusRoute busRoute = db.GetBusRoute(id);
-            var cities = db.GetCities().AsEnumerable();
-            ViewBag.FromCityId = new SelectList(cities, "Id", "CityName");
-            ViewBag.ToCityId = new SelectList(cities, "Id", "CityName");
+            City cityFrom = db.GetCity(busRoute.FromCityId);
+            City cityTo = db.GetCity(busRoute.ToCityId);
+            ViewBag.FromCityId = cityFrom.CityName;
+            ViewBag.ToCityId = cityTo.CityName;
             if (busRoute == null)
             {
                 return HttpNotFound();

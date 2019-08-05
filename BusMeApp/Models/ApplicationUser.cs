@@ -32,6 +32,8 @@ namespace BusMeApp.Models
         [MaxLength(8, ErrorMessage = "The identity card must contain only 8 letters.")]
         public string IdentityCard { get; set; }
         public virtual ICollection<Reservation> Reservations { get; set; }
+
+        public virtual ICollection<Post> Posts { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

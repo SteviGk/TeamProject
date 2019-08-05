@@ -4,86 +4,96 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            @using (Html.BeginForm())
+            {
+                <div class="col-md-6 col-md-pull-8 ml-auto">
+                    <div class="booking-form">
+                        <h3>Delete Bus Route</h3>
+                        <form align="center">
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.FromCityId)
+                                </dt>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>BusRoute</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FromCityId)
-        </dt>
+                                <dd>
+                                    @ViewBag.FromCityId
+                                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.FromCityId)
-        </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.ToCityId)
+                                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ToCityId)
-        </dt>
+                                <dd>
+                                    @ViewBag.ToCityId
+                                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ToCityId)
-        </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Departure)
+                                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Departure)
-        </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Departure)
+                                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Departure)
-        </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Arrival)
+                                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Arrival)
-        </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Arrival)
+                                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Arrival)
-        </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Type)
+                                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Type)
+                                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Price)
+                                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Price)
+                                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.AvailableSeats)
+                                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AvailableSeats)
-        </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.AvailableSeats)
+                                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.AvailableSeats)
-        </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.RemainingSeats)
+                                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.RemainingSeats)
-        </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.RemainingSeats)
+                                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.RemainingSeats)
-        </dd>
+                            </dl>
 
-    </dl>
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+                                <div class="form-actions no-color">
+                                    <input type="submit" value="Delete" class="btn btn-danger col-md-5"  />
+                                    @Html.ActionLink("Back", "Index", new { }, new { @class = "btn btn-primary col-md-5" })
+                                </div>
+                            }
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger" />
-            @Html.ActionLink("Back to Βus Routes", "Index", new { }, new { @class = "btn btn-primary" })
-        </div>
-    }
+                        </form>
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
 </div>

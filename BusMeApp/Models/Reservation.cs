@@ -26,6 +26,8 @@ namespace BusMeApp.Models
         [DisplayName("Number of tickets")]
         [Range(1, 40, ErrorMessage = "Please enter a price between 0 and 50")]
         public int NumberOfTickets { get; set; }
+        [DisplayName("Total Price")]
+        public decimal TotalPrice { get; set; }
         public bool PaymentCompleted { get; set; } = false;
     }
 }

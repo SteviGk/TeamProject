@@ -84,13 +84,13 @@ namespace BusMeApp.Models
         [DisplayName("First Name")]
         [Required(ErrorMessage = "You must input the first name of the passenger.")]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Please use only letters.")]
-        [StringLength(50)]
+        [StringLength(50,MinimumLength =2)]
         public string FirstName { get; set; }
 
         [DisplayName("Last Name")]
         [Required(ErrorMessage = "You must input the last name of the passenger.")]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Please use only letters.")]
-        [StringLength(50)]
+        [StringLength(50,MinimumLength = 2)]
         public string LastName { get; set; }
 
         [DisplayName("Identity Card")]
