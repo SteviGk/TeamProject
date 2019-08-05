@@ -54,13 +54,17 @@ textarea {
     margin-bottom: 10px;
     margin-right: 5px;
     background-image: linear-gradient(#6d94bf, #446E9B 50%, #3e648d);
+    margin-right: 10px;
+    margin-top: 5px;
 }
-
-.btn-success {
+.btn-success
+{
     margin-bottom: 10px;
     margin-right: 5px;
     background: -moz-linear-gradient(45deg, rgba(125,137,62,1) 0%, rgba(88,104,8,1) 100%);
     border: 0.1px solid groove;
+    margin-right: 20px;
+    margin-top: 5px;
 }
 
 .btn-danger {
@@ -68,6 +72,7 @@ textarea {
     margin-right: 5px;
     background: -moz-linear-gradient(45deg, rgba(192,34,22,1) 0%, rgba(169,25,20,1) 16%, rgba(205,43,35,1) 51%, rgba(170,29,24,1) 71%, rgba(167,32,32,1) 100%);
     border: 1px solid groove;
+    margin-top: 5px;
 }
 
 .btn-warning {
@@ -75,6 +80,7 @@ textarea {
     margin-right: 5px;
     background: -moz-linear-gradient(45deg, rgba(252,234,187,1) 0%, rgba(252,205,77,1) 44%, rgba(248,181,0,1) 51%, rgba(251,223,147,1) 100%);
     border: 1px solid groove;
+    margin-top: 5px;
 }
 
 #new-btn-city {
@@ -86,8 +92,14 @@ textarea {
 }
 
 .carousel-inner {
-    margin-top: 30px;
-    margin-bottom: 30px;
+   
+}
+
+.carousel {
+    width: 900px;
+    height: 400px;
+    margin-top: 10px;
+    margin-left: 100px;
 }
 
 /*---------- Forms------------*/
@@ -276,7 +288,7 @@ th {
 
 td {
     background: -moz-linear-gradient(left, rgba(242,246,248,1) 0%, rgba(181,198,208,1) 0%, rgba(216,225,231,1) 10%, rgba(224,239,249,1) 100%);
-    text-align: center;
+    text-align:center;
 }
 
 #city-table {

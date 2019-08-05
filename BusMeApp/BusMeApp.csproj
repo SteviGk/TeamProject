@@ -273,6 +273,7 @@
     <Content Include="Content\img\BusInside.jpg" />
     <Content Include="Content\img\BusInside2.jpg" />
     <Content Include="Content\img\BusInside3.jpg" />
+    <Content Include="Content\img\businside4.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
