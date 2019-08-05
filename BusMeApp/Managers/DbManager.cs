@@ -132,8 +132,11 @@ namespace BusMeApp.Managers
             Reservation reservation;
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                reservation = db.Reservations.Find(id);
+                reservation = db.Reservations
+                                .Include("Route")
+                                .SingleOrDefault(i => i.Id == id);
             }
+
             return reservation;
         }
 
@@ -215,7 +218,11 @@ namespace BusMeApp.Managers
             ICollection<BusRoute> busRoutes;
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                busRoutes = db.BusRoutes.Where(i=> i.Departure.Year == departure.Year && i.Departure.Month == departure.Month && i.Departure.Day == departure.Day && i.FromCityId == fromCityId && i.ToCityId == toCityId).ToList();
+                busRoutes = db.BusRoutes
+                    .Where(i=> i.Departure.Year == departure.Year && i.Departure.Month == departure.Month && i.Departure.Day == departure.Day && i.FromCityId == fromCityId && i.ToCityId == toCityId)
+                    .Include("From")
+                    .Include("To")
+                    .ToList();
             }
             return busRoutes;
         }
