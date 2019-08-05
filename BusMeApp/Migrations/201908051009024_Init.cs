@@ -20,48 +20,49 @@ namespace BusMeApp.Migrations
                         Price = c.Decimal(nullable: false, precision: 18, scale: 2),
                         AvailableSeats = c.Int(nullable: false),
                         RemainingSeats = c.Int(nullable: false),
-                        ApplicationUser_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Cities", t => t.FromCityId)
                 .ForeignKey("dbo.Cities", t => t.ToCityId)
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
                 .Index(t => t.FromCityId)
-                .Index(t => t.ToCityId)
-                .Index(t => t.ApplicationUser_Id);
+                .Index(t => t.ToCityId);
             
             CreateTable(
                 "dbo.Cities",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        CityName = c.String(),
+                        CityName = c.String(nullable: false, maxLength: 30),
                     })
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Reservations",
+                "dbo.Posts",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        PassengerId = c.String(maxLength: 128),
-                        BusRouteId = c.Int(nullable: false),
-                        NumberOfTickets = c.Int(nullable: false),
+                        Text = c.String(nullable: false, maxLength: 500),
+                        DateSent = c.DateTime(nullable: false),
+                        FromUserId = c.String(nullable: false, maxLength: 128),
+                        ToUserId = c.String(nullable: false, maxLength: 128),
+                        ApplicationUser_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.PassengerId)
-                .ForeignKey("dbo.BusRoutes", t => t.BusRouteId)
-                .Index(t => t.PassengerId)
-                .Index(t => t.BusRouteId);
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.FromUserId)
+                .ForeignKey("dbo.AspNetUsers", t => t.ToUserId)
+                .Index(t => t.FromUserId)
+                .Index(t => t.ToUserId)
+                .Index(t => t.ApplicationUser_Id);
             
             CreateTable(
                 "dbo.AspNetUsers",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
-                        FirstName = c.String(),
-                        LastName = c.String(),
-                        IdentityCard = c.String(),
+                        FirstName = c.String(nullable: false, maxLength: 50),
+                        LastName = c.String(nullable: false, maxLength: 50),
+                        IdentityCard = c.String(maxLength: 8),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -103,6 +104,23 @@ namespace BusMeApp.Migrations
                 .Index(t => t.UserId);
             
             CreateTable(
+                "dbo.Reservations",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        PassengerId = c.String(maxLength: 128),
+                        BusRouteId = c.Int(nullable: false),
+                        NumberOfTickets = c.Int(nullable: false),
+                        TotalPrice = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        PaymentCompleted = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.PassengerId)
+                .ForeignKey("dbo.BusRoutes", t => t.BusRouteId)
+                .Index(t => t.PassengerId)
+                .Index(t => t.BusRouteId);
+            
+            CreateTable(
                 "dbo.AspNetUserRoles",
                 c => new
                     {
@@ -130,31 +148,36 @@ namespace BusMeApp.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Posts", "ToUserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Posts", "FromUserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Reservations", "BusRouteId", "dbo.BusRoutes");
             DropForeignKey("dbo.Reservations", "PassengerId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Posts", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.BusRoutes", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.BusRoutes", "ToCityId", "dbo.Cities");
             DropForeignKey("dbo.BusRoutes", "FromCityId", "dbo.Cities");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
+            DropIndex("dbo.Reservations", new[] { "BusRouteId" });
+            DropIndex("dbo.Reservations", new[] { "PassengerId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.Reservations", new[] { "BusRouteId" });
-            DropIndex("dbo.Reservations", new[] { "PassengerId" });
-            DropIndex("dbo.BusRoutes", new[] { "ApplicationUser_Id" });
+            DropIndex("dbo.Posts", new[] { "ApplicationUser_Id" });
+            DropIndex("dbo.Posts", new[] { "ToUserId" });
+            DropIndex("dbo.Posts", new[] { "FromUserId" });
             DropIndex("dbo.BusRoutes", new[] { "ToCityId" });
             DropIndex("dbo.BusRoutes", new[] { "FromCityId" });
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
+            DropTable("dbo.Reservations");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            DropTable("dbo.Reservations");
+            DropTable("dbo.Posts");
             DropTable("dbo.Cities");
             DropTable("dbo.BusRoutes");
         }

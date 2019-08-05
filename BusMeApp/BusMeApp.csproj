@@ -50,9 +50,6 @@
     <Reference Include="ChameleonForms, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\ChameleonForms.3.0.2\lib\NET40\ChameleonForms.dll</HintPath>
     </Reference>
-    <Reference Include="FoolproofValidation, Version=0.9.5851.39121, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Foolproof.0.9.4518\lib\net45\FoolproofValidation.dll</HintPath>
-    </Reference>
     <Reference Include="Humanizer, Version=1.28.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
       <HintPath>packages\Humanizer.1.28.0\lib\portable-win+net40+sl50+wp8+wpa81\Humanizer.dll</HintPath>
     </Reference>
@@ -210,45 +207,9 @@
     </Compile>
     <Compile Include="Managers\ChatHub.cs" />
     <Compile Include="Managers\DbManager.cs" />
-    <Compile Include="Migrations\201907281221597_Init.cs" />
-    <Compile Include="Migrations\201907281221597_Init.Designer.cs">
-      <DependentUpon>201907281221597_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907281544466_migration2.cs" />
-    <Compile Include="Migrations\201907281544466_migration2.Designer.cs">
-      <DependentUpon>201907281544466_migration2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907290854498_models updated.cs" />
-    <Compile Include="Migrations\201907290854498_models updated.Designer.cs">
-      <DependentUpon>201907290854498_models updated.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907291636228_BusRoute Model Updated.cs" />
-    <Compile Include="Migrations\201907291636228_BusRoute Model Updated.Designer.cs">
-      <DependentUpon>201907291636228_BusRoute Model Updated.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907310920201_Changed Foreign Keys .cs" />
-    <Compile Include="Migrations\201907310920201_Changed Foreign Keys .Designer.cs">
-      <DependentUpon>201907310920201_Changed Foreign Keys .cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908050648394_ReservationPaymentCompleted.cs" />
-    <Compile Include="Migrations\201908050648394_ReservationPaymentCompleted.Designer.cs">
-      <DependentUpon>201908050648394_ReservationPaymentCompleted.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908011558186_Post Model Created.cs" />
-    <Compile Include="Migrations\201908011558186_Post Model Created.Designer.cs">
-      <DependentUpon>201908011558186_Post Model Created.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908020753414_Update post model.cs" />
-    <Compile Include="Migrations\201908020753414_Update post model.Designer.cs">
-      <DependentUpon>201908020753414_Update post model.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908030849347_City Model Changed.cs" />
-    <Compile Include="Migrations\201908030849347_City Model Changed.Designer.cs">
-      <DependentUpon>201908030849347_City Model Changed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908050735159_Reservation and Account Models edited.cs" />
-    <Compile Include="Migrations\201908050735159_Reservation and Account Models edited.Designer.cs">
-      <DependentUpon>201908050735159_Reservation and Account Models edited.cs</DependentUpon>
+    <Compile Include="Migrations\201908051009024_Init.cs" />
+    <Compile Include="Migrations\201908051009024_Init.Designer.cs">
+      <DependentUpon>201908051009024_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -414,39 +375,15 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907281221597_Init.resx">
-      <DependentUpon>201907281221597_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907281544466_migration2.resx">
-      <DependentUpon>201907281544466_migration2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907290854498_models updated.resx">
-      <DependentUpon>201907290854498_models updated.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907291636228_BusRoute Model Updated.resx">
-      <DependentUpon>201907291636228_BusRoute Model Updated.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907310920201_Changed Foreign Keys .resx">
-      <DependentUpon>201907310920201_Changed Foreign Keys .cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908011558186_Post Model Created.resx">
-      <DependentUpon>201908011558186_Post Model Created.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908020753414_Update post model.resx">
-      <DependentUpon>201908020753414_Update post model.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908030849347_City Model Changed.resx">
-      <DependentUpon>201908030849347_City Model Changed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908050735159_Reservation and Account Models edited.resx">
-      <DependentUpon>201908050735159_Reservation and Account Models edited.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201908051009024_Init.resx">
+      <DependentUpon>201908051009024_Init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
