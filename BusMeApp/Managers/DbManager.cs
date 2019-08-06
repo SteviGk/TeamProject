@@ -176,29 +176,29 @@ namespace BusMeApp.Managers
             return result;
         }
 
-        public bool UpdateReservation(Reservation reservation, string name)
-        {
-            bool flag = false;
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-                int prevReservedSeats = TotalSeatsValueRollback(reservation.Id);
-                BusRoute busRoute = db.BusRoutes.Find(reservation.BusRouteId);         
-                busRoute.RemainingSeats = busRoute.RemainingSeats - reservation.NumberOfTickets + prevReservedSeats;
-                ApplicationUser user = db.Users.FirstOrDefault(x => x.UserName == name);
-                if (busRoute.RemainingSeats >= 0)
-                {
-                    reservation.PassengerId = user.Id;
-                    reservation.TotalPrice = busRoute.Price * reservation.NumberOfTickets;
-                    db.BusRoutes.Attach(busRoute);
-                    db.Entry(busRoute).State = EntityState.Modified;
-                    db.Reservations.Attach(reservation);
-                    db.Entry(reservation).State = EntityState.Modified;
-                    db.SaveChanges();
-                    flag = true;
-                }
-            }
-            return flag;
-        }
+        //public bool UpdateReservation(Reservation reservation, string name)
+        //{
+        //    bool flag = false;
+        //    using (ApplicationDbContext db = new ApplicationDbContext())
+        //    {
+        //        int prevReservedSeats = TotalSeatsValueRollback(reservation.Id);
+        //        BusRoute busRoute = db.BusRoutes.Find(reservation.BusRouteId);         
+        //        busRoute.RemainingSeats = busRoute.RemainingSeats - reservation.NumberOfTickets + prevReservedSeats;
+        //        ApplicationUser user = db.Users.FirstOrDefault(x => x.UserName == name);
+        //        if (busRoute.RemainingSeats >= 0)
+        //        {
+        //            reservation.PassengerId = user.Id;
+        //            reservation.TotalPrice = busRoute.Price * reservation.NumberOfTickets;
+        //            db.BusRoutes.Attach(busRoute);
+        //            db.Entry(busRoute).State = EntityState.Modified;
+        //            db.Reservations.Attach(reservation);
+        //            db.Entry(reservation).State = EntityState.Modified;
+        //            db.SaveChanges();
+        //            flag = true;
+        //        }
+        //    }
+        //    return flag;
+        //}
 
         public void DeleteReservation(int id)
         {

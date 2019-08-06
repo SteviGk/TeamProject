@@ -65,12 +65,12 @@ namespace BusMeApp.Models
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             DateTime dt = (DateTime)value;
-            if (dt >= DateTime.UtcNow)
+            if (dt.Day>DateTime.Today.Day)
             {
                 return ValidationResult.Success;
             }
 
-            return new ValidationResult(ErrorMessage ?? "Make sure your date is equal or greater than today");
+            return new ValidationResult(ErrorMessage ?? "Make sure your date is greater than today");
         }
 
     }

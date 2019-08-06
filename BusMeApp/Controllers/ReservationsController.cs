@@ -63,36 +63,36 @@ namespace BusMeApp.Controllers
             }
         }
 
-        public ActionResult Edit(int id)
-        {
-            Reservation reservation = db.GetReservation(id);
-            if (reservation == null)
-            {
-                return HttpNotFound();
-            }
-            return View(reservation);
-        }
+        //public ActionResult Edit(int id)
+        //{
+        //    Reservation reservation = db.GetReservation(id);
+        //    if (reservation == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(reservation);
+        //}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Reservation reservation)
-        {
-            if (!ModelState.IsValid)
-            {
-                ViewBag.PassengerId = new SelectList(db.GetPassengers().AsEnumerable(), "Id", "Id");
-                ViewBag.BusRouteId = new SelectList(db.GetBusRoutes().AsEnumerable(), "Id", "Id");
-                return View(reservation);
-            }
-            string name = User.Identity.Name;
-            if (db.UpdateReservation(reservation, name))
-            {
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(Reservation reservation)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        ViewBag.PassengerId = new SelectList(db.GetPassengers().AsEnumerable(), "Id", "Id");
+        //        ViewBag.BusRouteId = new SelectList(db.GetBusRoutes().AsEnumerable(), "Id", "Id");
+        //        return View(reservation);
+        //    }
+        //    string name = User.Identity.Name;
+        //    if (db.UpdateReservation(reservation, name))
+        //    {
+        //        return RedirectToAction("Index");
+        //    }
+        //    else
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //}
 
         public ActionResult Delete(int id)
         {
