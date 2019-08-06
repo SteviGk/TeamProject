@@ -50,9 +50,9 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.TotalPrice)
-                </th>
-                <th>Pay/Delete</th>
-            </tr>
+                </th>             
+                    <th>Pay/Cancel</th>
+                </tr>
         <tbody>
             @foreach (var item in Model)
             {
@@ -88,9 +88,9 @@
                             <a id="@item.Id" class="btn btn-primary" href="@Url.Action("PaymentWithPaypal","Paypal",new { id = item.Id})">
                                 <i class="fab fa-paypal"></i>
                             </a>
+                            @Html.ActionLink("Cancel", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
                         }
 
-                        @Html.ActionLink("Cancel", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
                     </td>
                 </tr>
             }
