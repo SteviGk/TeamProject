@@ -19,30 +19,6 @@ namespace BusMeApp.Controllers
             return View(passengers);
         }
 
-        public ActionResult Edit(string id)
-        {
-            ApplicationUser user= db.GetPassenger(id);          
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(ApplicationUser user)
-        {
-            if (!ModelState.IsValid)
-            {               
-                return View(user);
-            }
-            string name = user.UserName;
-            string password = user.PasswordHash;
-            db.UpdatePassenger(user,name,password);
-            return RedirectToAction("Index");
-        }
-
         public ActionResult Delete(string id)
         {
             ApplicationUser user = db.GetPassenger(id);          
