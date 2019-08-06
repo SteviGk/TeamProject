@@ -83,6 +83,19 @@ namespace BusMeApp.Managers
             return user;
         }
 
+        public void UpdatePassenger(ApplicationUser user, string name, string password)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                user.UserName = name;
+                user.Email = name;
+                user.PasswordHash = password;
+                db.Users.Attach(user);
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
+
         public void DeletePassenger(string id)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
