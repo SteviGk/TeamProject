@@ -213,6 +213,16 @@ namespace BusMeApp.Managers
                 db.SaveChanges();
             }
         }
+
+        public void ReservationPaymentCompleted(int id)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var reservation = db.Reservations.Find(id);
+                reservation.PaymentCompleted = true;
+                db.SaveChanges();
+            }
+        }
         #endregion
 
         #region BusRoutes
