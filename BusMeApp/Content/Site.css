@@ -308,11 +308,6 @@ td {
 /*-----------------------------------------------------*/
 
 /*-------------------CONTACT PAGE STYLE-------------*/
-div > #messages {
-    font-size: 1.2rem;
-    /*word-wrap: break-word;*/
-}
-
 
 /*dropdown list*/
 div > .form-group > #to {
@@ -413,41 +408,67 @@ div > .form-group > #send {
         top: 0;
         border-radius: 0 5px 5px 0;
     }
-
-.bubble {
-    position:unset;
-    background: #FFFFCC;
-    border: 1px solid #FFCC00;
-    max-width: 250px;
-    padding: 10px;
-    font-family: arial;
-    margin: 0; 
-    font-size: 16px;
-    border-radius: 6px;
-    white-space: normal;
-    word-wrap: break-word;
-    color:darkblue;
+.chat {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 10px 20px;
+    -webkit-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    margin-top: 30px;
+    margin-bottom: 80px;
+    border-radius: 20px;
 }
 
-    .bubble:after,
-    .bubble:before {   
-        border: solid transparent;
-        content: " ";
-        height: 0;
-        width: 0;
+.bubble {
+    background-color: #F2F2F2;
+    border-radius: 5px;
+    box-shadow: 0 0 6px #B2B2B2;
+    display: inline-block;
+    padding: 10px 18px;
+    position: relative;
+    vertical-align: top;
+
+}
+
+    .bubble::before {
+        background-color: #F2F2F2;
+        content: "\00a0";
+        display: block;
+        height: 16px;
         position: absolute;
-        pointer-events: none;
+        top: 11px;
+        transform: rotate( 29deg ) skew( -35deg );
+        -moz-transform: rotate( 29deg ) skew( -35deg );
+        -ms-transform: rotate( 29deg ) skew( -35deg );
+        -o-transform: rotate( 29deg ) skew( -35deg );
+        -webkit-transform: rotate( 29deg ) skew( -35deg );
+        width: 20px;
     }
 
-    .bubble:after {
-        border-color: rgba(255, 255, 204, 0);
-        border-right-color: #FFFFCC;
+.me {
+    float: left;
+    margin: 5px 45px 5px 20px;
+    white-space: normal;
+    word-wrap: break-word;
+}
 
+    .me::before {
+        box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 );
+        left: -9px;
     }
 
-    .bubble:before {
-        border-color: rgba(255, 204, 0, 0);
-        border-right-color: #FFCC00;        
+.you {
+    float: right;
+    margin: 5px 20px 5px 45px;
+    white-space: normal;
+    word-wrap: break-word;
+}
 
+    .you::before {
+        box-shadow: 2px -2px 2px 0 rgba( 178, 178, 178, .4 );
+        right: -9px;
     }
+ .contact{
+    margin-top:50px;
+}
 /*----------------------------------------------------------------------*/

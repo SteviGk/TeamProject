@@ -4,44 +4,47 @@
 
 
 
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm())
-            {
-                <div class="col-md-6 col-md-pull-8 ml-auto">
-                    <div class="booking-form">
-                        <h2>Contact</h2>
-                        <form align="center">
-                            <address>
-                                <p style="color:aliceblue; text-align:center;"> You can chat live with the administrator of the page or you can send an e-mail.</p>
-                                <p style="color:aliceblue; text-align:center;"><strong>Support: </strong><a href="mailto:admin@busmeapp.com">admin@busmeapp.com</a><br /></p>
-                            </address>
-                            <div>
-                                <div class="form-group">
-                                    @Html.HiddenFor(m => m.UserName, new { id = "from" })
-                                </div>
-                                <div class="form-group">
-                                    @Html.DropDownList("users", (SelectList)ViewBag.User, new { id = "to" })
-                                </div>
-                                <div class="form-group">
-                                    <textarea style="resize:none" id="message" rows="5" cols="50"> </textarea>
-                                </div>
-                                <div class="form-group">
-                                    <button type="button" id="send" style="margin-bottom:10px;">Send</button>
-                                </div>
-                                <div id="messages" class="bubble">
+    <div class="row">
+        <div class="col-md-6">
+            <section id="loginform">
+                @using (Html.BeginForm())
+                {
+                    <div class="col-md-8 col-md-pull-10 ml-5">
+                        <div class="booking-form contact">
+                            <h2>Contact</h2>
+                            <form align="center">
+                                <address>
+                                    <p style="color:aliceblue; text-align:center;"> You can chat live with the administrator of the page or you can send an e-mail.</p>
+                                    <p style="color:aliceblue; text-align:center;"><strong>Support: </strong><a href="mailto:admin@busmeapp.com">admin@busmeapp.com</a><br /></p>
+                                </address>
+                                <div>
+                                    <div class="form-group">
+                                        @Html.HiddenFor(m => m.UserName, new { id = "from" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.DropDownList("users", (SelectList)ViewBag.User, new { id = "to" })
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea style="resize:none" id="message" rows="5" cols="50"> </textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" id="send" style="margin-bottom:10px;">Send</button>
+                                    </div>
 
                                 </div>
+                            </form>
 
-                            </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
-            }
-        </section>
+                }
+            </section>
+
+        </div>
+        <div class="chat booking-form col-md-4" >
+            <h2>Chat Area</h2>
+
+        </div>
     </div>
-</div>
 
 @section scripts{
     <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
@@ -50,25 +53,27 @@
     <script>
         $(document).ready(() => {
             let chat = $.connection.chatHub;
-            
             //Get Message from Hub
             chat.client.gotMessage = (to, message) => {
-                $('#messages').append(`<p>${to}:${message}</p>`);
+                $('.chat').append(`<div class="bubble you"><p>${to}:${message}</p></div>`);
             }
 
             //start the connection
-            $.connection.hub.start().done(() => {
+            $.connection.hub.start().done(() => { 
+               
                 // only when connected call chat.server
                 $('#send').click(() => {
+                     $('.chat').show();
                     //Send message to hub by calling its Method
                     chat.server.sendToUser($('#from').val(), $('#to').val(), $('#message').val());
                     //append my own message
-                    $('#messages').show();
-                    $('#messages').append(`<p><Strong>Me:</Strong> ${$('#message').val()}</p>`);
+                    $('.chat').show();
+                    $('.chat').append(`<div class="bubble me"><p><Strong>Me:</Strong> ${$('#message').val()}</p></div>`);
                     //reset message input
                     $('#message').val('').focus();
                 });
             });
+           
 
         });
     </script>
