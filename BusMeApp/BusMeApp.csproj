@@ -284,6 +284,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.chameleon.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jQueryFixes.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
@@ -336,7 +337,6 @@
     <Content Include="Views\Cities\Edit.cshtml" />
     <Content Include="Views\Cities\Index.cshtml" />
     <Content Include="Views\Passengers\Delete.cshtml" />
-    <Content Include="Views\Passengers\Edit.cshtml" />
     <Content Include="Views\Passengers\Index.cshtml" />
     <Content Include="Views\Reservations\Delete.cshtml" />
     <Content Include="Views\Reservations\Edit.cshtml" />

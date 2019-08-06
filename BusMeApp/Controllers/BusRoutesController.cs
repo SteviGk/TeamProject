@@ -136,6 +136,10 @@ namespace BusMeApp.Controllers
             }
 
             var busRoutes = db.SearchBusRoute(vm.Departure, vm.FromCityId, vm.ToCityId);
+            if (User.IsInRole("Administrator"))
+            {
+                return View("Index", busRoutes);
+            }
             return View("Details", busRoutes);
         }
     }

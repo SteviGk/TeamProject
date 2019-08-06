@@ -25,7 +25,7 @@ namespace BusMeApp.Controllers
                 if (string.IsNullOrEmpty(payerId))
                 {
                     Reservation r = db.GetReservation(id.Value);
-
+                    Session["ReservationId"] = r.Id;
                     //this section will be executed first because PayerID doesn't exist  
                     //it is returned by the create function call of the payment class  
                     // Creating a payment  
@@ -70,7 +70,16 @@ namespace BusMeApp.Controllers
                 return View("FailureView");
             }
             //on successful payment, show success page to user.  
-            return View("SuccessView");
+            db.ReservationPaymentCompleted(Convert.ToInt32(Session["ReservationId"]));
+            Session.Remove("ReservationId");
+
+            return RedirectToAction("RedirectToReservations", new { paymentSuccess = true });
+        }
+
+        public ActionResult RedirectToReservations(bool paymentSuccess)
+        {
+            TempData["PaymentSuccess"] = paymentSuccess;
+            return RedirectToAction("Index", "Reservations");
         }
         private Payment payment;
         private Payment ExecutePayment(APIContext apiContext, string payerId, string paymentId)
