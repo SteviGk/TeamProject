@@ -42,7 +42,7 @@ namespace BusMeApp.Models
         public virtual City To { get; set; }
 
         [Required(ErrorMessage = "You must input a price.")]
-        [Range(0, 200, ErrorMessage = "Please enter a price between 0 and 200")]
+        [Range(0, 200.00, ErrorMessage = "Please enter a price between 0 and 200")]
         public decimal Price { get; set; }
 
         [Required]
