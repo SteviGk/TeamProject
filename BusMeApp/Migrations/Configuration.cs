@@ -25,7 +25,7 @@ namespace BusMeApp.Migrations
             //  to avoid creating duplicate seed data.
 
 //            SeedIdentities(context);
-//        }
+        }
 
 //        internal static void SeedIdentities(ApplicationDbContext context)
 //        {
@@ -91,5 +91,5 @@ namespace BusMeApp.Migrations
 //            }
 
 //        }
-//    }
-//}
+   }
+}
